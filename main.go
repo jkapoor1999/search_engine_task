@@ -8,20 +8,21 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	// "go.mongodb.org/mongo-driver/bson"
+	// "go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+var collection *mongo.Collection
 
 type page struct { //API 1
 	Title    string   `json:"title"`
 	Keywords []string `json:"keywords"`
 }
 
-type user_keywords struct { // API 2
-	User_keywords []string `json:"user_keywords"`
+type keywords struct {
+	User_keywords []string
 }
-
-// var res page
 
 func savePage(c *gin.Context) {
 	var newPage page
@@ -47,13 +48,44 @@ func savePage(c *gin.Context) {
 }
 
 func getResult(c *gin.Context) {
+	var words keywords
+	if err := c.BindJSON(&words); err != nil {
+		return
+	}
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		fmt.Println("Mongo.connect() ERROR: ", err)
+		os.Exit(1)
+	}
+
+	col := client.Database("searchengine").Collection("pages")
+	cursor, err := col.Find(context.TODO(), bson.D{})
+	
+	
+
 
 }
+
+
+// func displayWords(c *gin.Context) {
+// 	var words keywords
+// 	if err := c.BindJSON(&words); err != nil {
+// 		return
+// 	}
+// 	c.IndentedJSON(http.StatusCreated, words)
+// }
+
+
+
+
+
+
 
 func main() {
 	router := gin.Default()
 	router.POST("/api1", savePage)
 	router.POST("/api2", getResult)
-
+	// router.POST("/api3", displayWords)
 	router.Run("localhost:8080")
 }
