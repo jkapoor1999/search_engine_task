@@ -192,12 +192,12 @@ func getResult(c *gin.Context) {
 	res := []Result{}
 
 	for i := 0; i < len(pages); i++ {
+                var tempRs Result
 
-		var tempRs Result
-
-		tempScore := 0
-
+                tempScore := 0
 		for j := 0; j < len(pages[i].Keywords); j++ {
+
+			
 
 			for k := 0; k < len(words.User_keywords); k++ {
 
@@ -209,17 +209,18 @@ func getResult(c *gin.Context) {
 
 			}
 
-		}
-
-		if tempScore > 0 {
-
-			tempRs.Title = pages[i].Title
-
-			tempRs.Score = tempScore
+			
 
 		}
+        if tempScore > 0 {
 
-		res = append(res, tempRs)
+            tempRs.Title = pages[i].Title
+
+            tempRs.Score = tempScore
+
+        }
+
+        res = append(res, tempRs)
 
 	}
 
@@ -233,7 +234,7 @@ func getResult(c *gin.Context) {
 
 	}
 
-	for i := len(ans) - 1; i >= 0; i-- {
+	for i := len(ans)-1; i >= 0; i-- {
 
 		fmt.Println(ans[i])
 
