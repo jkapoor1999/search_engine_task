@@ -1,7 +1,7 @@
 # search_engine_task
 
 ## *STEP 1: CLONE THE REPOSITORY*
-`git clone https://github.com/Anvesh965/Search-Engine.git "Search Engine"`
+`git clone https://github.com/jkapoor1999/search_engine_task`
 
 ## *STEP 2: RUNNING DOCKER*
 ```
