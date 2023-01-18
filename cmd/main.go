@@ -133,10 +133,18 @@ func main() {
 
 	router := gin.Default()
 
+	router.GET("/", func(ctx *gin.Context) {
+		ctx.IndentedJSON(http.StatusOK, "Alive")
+	})
+
+	router.GET("/ping", func(ctx *gin.Context) {
+		pkg.Dbconn()
+		ctx.IndentedJSON(http.StatusOK, "Ping Successful")
+	})
+
 	router.POST("/v1/savepage", savePage)
 
 	router.GET("/v1/getresult", getResult)
 
-	router.Run("localhost:4000")
-
+	router.Run(":4000")
 }

@@ -55,8 +55,11 @@ func (u PagesByScore) Less(i, j int) bool {
 
 func Dbconn() *mongo.Collection {
 	// const URI string = "mongodb://host.docker.internal:27017";
-	// const URI string = "mongodb://mongo-container:27017"
-	const URI string = "mongodb://localhost:27017"
+	const URI string = "mongodb://mongo-container:27017"
+	// const URI string = "mongodb://localhost:27017"
+
+
+
 	clientOptions := options.Client().ApplyURI(URI)
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
