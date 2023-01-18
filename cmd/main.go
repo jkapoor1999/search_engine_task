@@ -135,8 +135,8 @@ func main() {
 
 	router.POST("/v1/savepage", savePage)
 
-	router.POST("/v1/getresult", getResult)
+	router.GET("/v1/getresult", getResult)
 
-	router.Run("localhost:8084")
+	router.Run("localhost:4000")
 
 }

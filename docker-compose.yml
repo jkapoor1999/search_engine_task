@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  mongo-container:
+    image: mongo    
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./store/v1/data:/data/db
+      - ./store/v1/config:/data/configdb
+  
