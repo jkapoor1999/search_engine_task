@@ -37,7 +37,7 @@ All available routes
               ]
       }
 ```
-## *STEP 4:TO STOP THE CONTAINER*
+## *STEP 4: TO STOP THE CONTAINER*
 `docker-compose down`
       
     
