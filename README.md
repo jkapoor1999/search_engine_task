@@ -1,9 +1,9 @@
 # search_engine_task
 
-##STEP 1: CLONE THE REPOSITORY
+## *STEP 1: CLONE THE REPOSITORY*
 `git clone https://github.com/Anvesh965/Search-Engine.git "Search Engine"`
 
-##*STEP 2: RUNNING DOCKER*
+## *STEP 2: RUNNING DOCKER*
 ```
 cd "search_engine_task"
 
@@ -29,7 +29,7 @@ Use any API testing applications such as Postman, Insomnia or ThunderClient
     **2.To get back the computed answer from MongoDB : GET Request**
      `http://localhost:4000/v1/getresult`
      Add this in the JSON body
-     ```
+```
      {    
        "user_keywords": [
                 "Ford",      
@@ -38,7 +38,7 @@ Use any API testing applications such as Postman, Insomnia or ThunderClient
       }
 ```
 ##STEP 4:TO STOP THE CONTAINER
-` docker-compose down`
+`docker-compose down`
       
     
     
