@@ -7,7 +7,9 @@
 ```
 cd "search_engine_task"
 
-docker-compose up --build
+docker-compose build
+
+docker-compose up
 ```
 ## *STEP 3: TESTING API*
 Use any API testing applications such as Postman, Insomnia or ThunderClient
