@@ -22,7 +22,7 @@ up:
 
 	@echo Stopping docker images (if running...)
 
-	docker-compose down
+	docker-compose down --rmi local
 
 	@echo Building (when required) and starting docker images...
 

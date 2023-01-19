@@ -5,6 +5,7 @@ LABEL Jai Kapoor and Vishal M Shekhar
 WORKDIR /projects/data/
 
 COPY go.mod go.sum ./
+RUN go mod download
 
 COPY ./ ./
 

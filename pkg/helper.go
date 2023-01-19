@@ -2,12 +2,10 @@ package pkg
 
 import (
 	"context"
-	"fmt"
 	"os"
+	"search_engine_task/pkg/dbconn"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Page struct { //API 1
@@ -53,31 +51,9 @@ func (u PagesByScore) Less(i, j int) bool {
 
 }
 
-func Dbconn() *mongo.Collection {
-	// const URI string = "mongodb://host.docker.internal:27017";
-	const URI string = "mongodb://mongo-container:27017"
-	// const URI string = "mongodb://localhost:27017"
-
-
-
-	clientOptions := options.Client().ApplyURI(URI)
-
-	client, err := mongo.Connect(context.TODO(), clientOptions)
-
-	if err != nil {
-
-		fmt.Println("Mongo.connect() ERROR: ", err)
-
-		os.Exit(1)
-
-	}
-
-	return client.Database("searchengine").Collection("pages")
-}
-
 func GetAllCollection() []bson.M {
 
-	cur, err := Dbconn().Find(context.Background(), bson.D{})
+	cur, err := dbconn.Dbconn().Find(context.Background(), bson.D{})
 
 	if err != nil {
 

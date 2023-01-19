@@ -1,0 +1,10 @@
+server:
+  host: .
+  port: 4000
+
+database:
+  host: mongo-container
+  port: 27017
+  protocol: mongodb
+  dbname: searchengine
+  collection: pages
