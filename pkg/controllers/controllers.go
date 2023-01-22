@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"search_engine_task/pkg"
 	"search_engine_task/pkg/dbconn"
 	"sort"
 	"strings"
 	"time"
-	"search_engine_task/pkg"
+
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -24,7 +25,8 @@ func SavePage(c *gin.Context) {
 
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
 
 	_, insertErr := dbconn.Dbconn().InsertOne(ctx, newPage)
 
@@ -65,12 +67,6 @@ func GetResult(c *gin.Context) {
 		pages = append(pages, s)
 
 	}
-
-	// for _, p := range pages {
-
-	//  println(p.Title)
-
-	// }
 
 	res := []pkg.Result{}
 

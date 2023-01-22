@@ -10,8 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func StartServer(router *gin.Engine) {
-	router = gin.Default()
+func StartServer() {
+	router := gin.Default()
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.IndentedJSON(http.StatusOK, "Alive")
 	})
