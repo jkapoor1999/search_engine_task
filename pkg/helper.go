@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-type Page struct { //API 1
+type Page struct { 
 
 	Title string `json:"title"`
 

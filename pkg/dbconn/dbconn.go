@@ -5,15 +5,22 @@ import (
 	"fmt"
 	"os"
 	"search_engine_task/cmd/config"
-	
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+type MongoService struct {
+	collection *mongo.Collection
+}
+
+func NewMongoService(collection *mongo.Collection) DB {
+	return &MongoService{collection: collection}
+}
+
+
+
 func Dbconn() *mongo.Collection {
-	// const URI string = "mongodb://host.docker.internal:27017";
-	// const URI string = "mongodb://mongo-container:27017"
-	// const URI string = "mongodb://localhost:27017"
 
 	URI := config.Config.Database.Protocol + "://" + config.Config.Database.Host + ":" + fmt.Sprint(config.Config.Database.Port)
 
@@ -30,5 +37,5 @@ func Dbconn() *mongo.Collection {
 	}
 
 	return client.Database(config.Config.Database.DBName).Collection(config.Config.Database.Collection)
-	// return client.Database("searchengine").Collection("pages")
+
 }
