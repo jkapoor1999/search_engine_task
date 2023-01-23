@@ -19,11 +19,9 @@ func StartServer() {
 	router.GET("/ping", func(ctx *gin.Context) {
 		dbconn.Dbconn()
 		ctx.IndentedJSON(http.StatusOK, "Ping Successful")
-	})
+	})	
 	
-	pc := controllers.PageController{}
-	
-	router.POST("/v1/savepage", pc.SavePage)
+	router.POST("/v1/savepage", controllers.SavePage)
 
 	router.GET("/v1/getresult", controllers.GetResult)
 
