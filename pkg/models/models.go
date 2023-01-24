@@ -16,3 +16,21 @@ type Result struct {
 
 	Score int
 }
+
+type PagesByScore []Result
+
+func (u PagesByScore) Len() int {
+	return len(u)
+}
+
+func (u PagesByScore) Swap(i, j int) {
+
+	u[i], u[j] = u[j], u[i]
+
+}
+
+func (u PagesByScore) Less(i, j int) bool {
+
+	return u[i].Score < u[j].Score
+
+}

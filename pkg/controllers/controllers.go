@@ -2,37 +2,13 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"net/http"
-	"os"
-	"search_engine_task/pkg"
-	"search_engine_task/pkg/dbconn"
 	"search_engine_task/pkg/models"
-	"sort"
-	"strings"
+	"search_engine_task/pkg/services"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
 )
-
-type PagesByScore []models.Result
-
-func (u PagesByScore) Len() int {
-	return len(u)
-}
-
-func (u PagesByScore) Swap(i, j int) {
-
-	u[i], u[j] = u[j], u[i]
-
-}
-
-func (u PagesByScore) Less(i, j int) bool {
-
-	return u[i].Score < u[j].Score
-
-}
 
 type Interface interface {
 	Len() int
@@ -42,7 +18,7 @@ type Interface interface {
 	Swap(i, j int)
 }
 
-type Service interface {
+type IController interface {
 	Get()
 	Insert()
 	Check()
@@ -50,8 +26,11 @@ type Service interface {
 }
 
 type Controller struct {
-	service Service
-	// db *dbconn.DB
+	searchService services.ISearchService
+}
+
+func NewController(searchService services.ISearchService) *Controller {
+	return &Controller{searchService: searchService}
 }
 
 func (ct *Controller) Get(c *gin.Context) {
@@ -64,69 +43,14 @@ func (ct *Controller) Get(c *gin.Context) {
 
 	}
 
-	temp := pkg.GetAllCollection()
+	ans, err := ct.searchService.GetResult(c, words)
 
-	pages := []models.Page{}
-
-	for _, p := range temp {
-
-		var s models.Page
-
-		bsonBytes, _ := bson.Marshal(p)
-
-		bson.Unmarshal(bsonBytes, &s)
-
-		pages = append(pages, s)
-
+	if err != nil {
+		c.IndentedJSON(http.StatusInternalServerError, err)
+		return
 	}
 
-	res := []models.Result{}
-
-	for i := 0; i < len(pages); i++ {
-		var tempRs models.Result
-
-		tempScore := 0
-		for j := 0; j < len(pages[i].Keywords); j++ {
-
-			for k := 0; k < len(words.User_keywords); k++ {
-
-				if strings.EqualFold(pages[i].Keywords[j], words.User_keywords[k]) {
-
-					tempScore += (10 - k) * (10 - j)
-
-				}
-
-			}
-
-		}
-		if tempScore > 0 {
-
-			tempRs.Title = pages[i].Title
-
-			tempRs.Score = tempScore
-
-		}
-
-		res = append(res, tempRs)
-
-	}
-
-	sort.Stable(PagesByScore(res))
-
-	ans := []string{}
-
-	for i := 0; i < len(res); i++ {
-
-		ans = append(ans, res[i].Title)
-
-	}
-
-	for i := len(ans) - 1; i >= 0; i-- {
-
-		fmt.Println(ans[i])
-
-	}
-
+	c.IndentedJSON(http.StatusOK, ans)
 }
 
 func (ct *Controller) Insert(c *gin.Context) {
@@ -142,13 +66,12 @@ func (ct *Controller) Insert(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	_, insertErr := dbconn.Dbconn().InsertOne(ctx, newPage)
+	insertErr := ct.searchService.SavePage(ctx, newPage)
 
 	if insertErr != nil {
 
-		println("InsertONE Error:", insertErr)
-
-		os.Exit(1)
+		c.IndentedJSON(http.StatusInternalServerError, insertErr)
+		return
 
 	}
 
