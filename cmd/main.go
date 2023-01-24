@@ -25,11 +25,11 @@ func StartServer() {
 	mongoClient := external.NewMongoDB(Dbconn())
 	searchservice := services.NewSearchService(mongoClient)
 	ct := controllers.NewController(searchservice)
-	ct.Routes(router.Group("/v1"))
+	ct.Routes(router.Group("/" + config.Config.Server.Version))
 	router.Run(":" + fmt.Sprint(config.Config.Server.Port))
 }
 
-func Dbconn() *mongo.Collection {
+func Dbconn() (*mongo.Collection) {
 
 	URI := config.Config.Database.Protocol + "://" + config.Config.Database.Host + ":" + fmt.Sprint(config.Config.Database.Port)
 

@@ -1,6 +1,7 @@
 server:
   host: .
   port: 4000
+  version: "v1"
 
 database:
   host: mongo-container
