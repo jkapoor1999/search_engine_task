@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 	"os"
-	
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -25,7 +25,7 @@ var Config Configure
 
 func LoadConfig() {
 
-	data, err := os.ReadFile("./cmd/config/config.yaml")
+	data, err := os.ReadFile("./cmd/config/config.yml")
 	if err != nil {
 		log.Fatalf("Error reading config file: %s", err)
 	}

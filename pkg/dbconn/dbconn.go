@@ -10,6 +10,15 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// type DBService interface {
+// 	Dbconn()
+// }
+
+// type DB struct {
+// 	col       *mongo.Collection
+// 	dbservice DBService
+// }
+
 func Dbconn() *mongo.Collection {
 
 	URI := config.Config.Database.Protocol + "://" + config.Config.Database.Host + ":" + fmt.Sprint(config.Config.Database.Port)
@@ -26,6 +35,6 @@ func Dbconn() *mongo.Collection {
 
 	}
 
+	// db.col = client.Database(config.Config.Database.DBName).Collection(config.Config.Database.Collection)
 	return client.Database(config.Config.Database.DBName).Collection(config.Config.Database.Collection)
-
 }
