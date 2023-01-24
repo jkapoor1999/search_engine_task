@@ -18,7 +18,7 @@ func NewSearchService(dbParam external.IDBClient) *SearchService {
 	return &SearchService{dbClient: dbParam}
 }
 
-func (s SearchService) SavePage(ctx context.Context, page models.Page) error {
+func (s SearchService) SavePage(ctx context.Context, page models.Page) (error) {
 	return s.dbClient.InsertOnePage(ctx, page)
 }
 

@@ -1,7 +1,6 @@
 package models
 
-type Page struct { 
-
+type Page struct {
 	Title string `json:"title"`
 
 	Keywords []string `json:"keywords"`
