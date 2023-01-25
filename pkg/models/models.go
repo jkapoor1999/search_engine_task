@@ -30,6 +30,6 @@ func (u PagesByScore) Swap(i, j int) {
 
 func (u PagesByScore) Less(i, j int) bool {
 
-	return u[i].Score < u[j].Score
+	return u[i].Score > u[j].Score
 
 }
