@@ -9,5 +9,5 @@ import (
 
 type IDBClient interface {
 	GetAllCollection() []bson.M
-	InsertOnePage(context.Context, models.Page) error
+	InsertOnePage(context.Context, models.Page) (error)
 }

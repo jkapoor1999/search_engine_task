@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-playground/assert/v2 v2.0.1
 	github.com/goccy/go-json v0.10.0
+	github.com/magiconair/properties v1.8.7
 	github.com/stretchr/testify v1.8.1
 	go.mongodb.org/mongo-driver v1.11.1
 	golang.org/x/net v0.5.0

@@ -1,0 +1,16 @@
+mode: set
+search_engine_task/pkg/services/search_service.go:17.66,19.2 1 1
+search_engine_task/pkg/services/search_service.go:21.80,23.2 1 1
+search_engine_task/pkg/services/search_service.go:25.96,30.25 3 0
+search_engine_task/pkg/services/search_service.go:42.2,44.34 2 0
+search_engine_task/pkg/services/search_service.go:73.2,77.32 3 0
+search_engine_task/pkg/services/search_service.go:83.2,83.17 1 0
+search_engine_task/pkg/services/search_service.go:30.25,40.3 4 0
+search_engine_task/pkg/services/search_service.go:44.34,48.47 3 0
+search_engine_task/pkg/services/search_service.go:61.3,61.20 1 0
+search_engine_task/pkg/services/search_service.go:69.3,69.28 1 0
+search_engine_task/pkg/services/search_service.go:48.47,50.50 1 0
+search_engine_task/pkg/services/search_service.go:50.50,52.72 1 0
+search_engine_task/pkg/services/search_service.go:52.72,56.6 1 0
+search_engine_task/pkg/services/search_service.go:61.20,67.4 2 0
+search_engine_task/pkg/services/search_service.go:77.32,81.3 1 0

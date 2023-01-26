@@ -8,14 +8,11 @@ import (
 
 	"github.com/go-playground/assert/v2"
 	"github.com/stretchr/testify/mock"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
-func TestNewSearchService(t *testing.T) {
-
-}
 
 func TestSearchService_SavePage(t *testing.T) {
-
 	mockService := mocks.NewIDBClient(t)
 	mockService.On("InsertOnePage", mock.Anything, mock.Anything).Return(nil)
 	searchservice := NewSearchService(mockService)
@@ -31,8 +28,9 @@ func TestSearchService_SavePage(t *testing.T) {
 }
 
 func TestSearchService_GetResult(t *testing.T) {
+	// INCOMPLETE
 	mockService := mocks.NewIDBClient(t)
-	mockService.On("GetAllCollection", mock.Anything, mock.Anything).Return(nil)
+	mockService.On("GetAllCollection", mock.Anything, mock.Anything).Return([]bson.M{})
 	searchservice := NewSearchService(mockService)
 
 	input := models.Page{
