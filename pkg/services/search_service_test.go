@@ -2,78 +2,45 @@ package services
 
 import (
 	"context"
-	"reflect"
-	"search_engine_task/pkg/external"
+	"search_engine_task/mocks"
 	"search_engine_task/pkg/models"
 	"testing"
+
+	"github.com/go-playground/assert/v2"
+	"github.com/stretchr/testify/mock"
 )
 
 func TestNewSearchService(t *testing.T) {
-	type args struct {
-		dbParam external.IDBClient
-	}
-	tests := []struct {
-		name string
-		args args
-		want *SearchService
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := NewSearchService(tt.args.dbParam); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewSearchService() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+
 }
 
 func TestSearchService_SavePage(t *testing.T) {
-	type args struct {
-		ctx  context.Context
-		page models.Page
+
+	mockService := mocks.NewIDBClient(t)
+	mockService.On("InsertOnePage", mock.Anything, mock.Anything).Return(nil)
+	searchservice := NewSearchService(mockService)
+
+	input := models.Page{
+		Title:    "Page 10",
+		Keywords: []string{"wrd1", "wrd2"},
 	}
-	tests := []struct {
-		name    string
-		s       SearchService
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.s.SavePage(tt.args.ctx, tt.args.page); (err != nil) != tt.wantErr {
-				t.Errorf("SearchService.SavePage() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
+	var ctx context.Context
+	err := searchservice.SavePage(ctx, input)
+
+	assert.Equal(t, nil, err)
 }
 
 func TestSearchService_GetResult(t *testing.T) {
-	type args struct {
-		ctx   context.Context
-		words models.Keywords
+	mockService := mocks.NewIDBClient(t)
+	mockService.On("GetAllCollection", mock.Anything, mock.Anything).Return(nil)
+	searchservice := NewSearchService(mockService)
+
+	input := models.Page{
+		Title:    "Page 10",
+		Keywords: []string{"wrd1", "wrd2"},
 	}
-	tests := []struct {
-		name    string
-		s       SearchService
-		args    args
-		want    []string
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := tt.s.GetResult(tt.args.ctx, tt.args.words)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("SearchService.GetResult() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("SearchService.GetResult() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	var ctx context.Context
+	err := searchservice.SavePage(ctx, input)
+
+	assert.Equal(t, nil, err)
 }

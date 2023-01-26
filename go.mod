@@ -4,7 +4,8 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.8.2
-	github.com/magiconair/properties v1.8.7
+	github.com/go-playground/assert/v2 v2.0.1
+	github.com/goccy/go-json v0.10.0
 	github.com/stretchr/testify v1.8.1
 	go.mongodb.org/mongo-driver v1.11.1
 	golang.org/x/net v0.5.0
@@ -17,7 +18,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
-	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect

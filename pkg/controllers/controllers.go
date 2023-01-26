@@ -87,4 +87,5 @@ func (ct *Controller) Routes(router *gin.RouterGroup) {
 	router.GET("/", ct.Check)
 	router.POST("insert", ct.Insert)
 	router.GET("get", ct.Get)
+	// ctx.IndentedJSON(http.StatusCreated)
 }
