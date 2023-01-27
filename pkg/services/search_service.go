@@ -6,8 +6,6 @@ import (
 	"search_engine_task/pkg/models"
 	"sort"
 	"strings"
-
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 type SearchService struct {
@@ -18,26 +16,12 @@ func NewSearchService(dbParam external.IDBClient) *SearchService {
 	return &SearchService{dbClient: dbParam}
 }
 
-func (s SearchService) SavePage(ctx context.Context, page models.Page) (error) {
+func (s SearchService) SavePage(ctx context.Context, page models.Page) error {
 	return s.dbClient.InsertOnePage(ctx, page)
 }
 
 func (s SearchService) GetResult(ctx context.Context, words models.Keywords) ([]string, error) {
-	temp := s.dbClient.GetAllCollection()
-
-	pages := []models.Page{}
-
-	for _, p := range temp {
-
-		var s models.Page
-
-		bsonBytes, _ := bson.Marshal(p)
-
-		bson.Unmarshal(bsonBytes, &s)
-
-		pages = append(pages, s)
-
-	}
+	pages := s.dbClient.GetAllCollection()
 
 	res := []models.Result{}
 

@@ -17,7 +17,7 @@ func NewMongoDB(coll *mongo.Collection) *MongoDB {
 	return &MongoDB{coll: coll}
 }
 
-func (c *MongoDB) GetAllCollection() []bson.M {
+func (c *MongoDB) GetAllCollection() []models.Page {
 	cur, err := c.coll.Find(context.Background(), bson.D{})
 
 	if err != nil {
@@ -46,7 +46,21 @@ func (c *MongoDB) GetAllCollection() []bson.M {
 
 	defer cur.Close(context.Background())
 
-	return temp
+	pages := []models.Page{}
+
+	for _, p := range temp {
+
+		var s models.Page
+
+		bsonBytes, _ := bson.Marshal(p)
+
+		bson.Unmarshal(bsonBytes, &s)
+
+		pages = append(pages, s)
+
+	}
+
+	return pages
 }
 
 func (c *MongoDB) InsertOnePage(ctx context.Context, newPage models.Page) error {

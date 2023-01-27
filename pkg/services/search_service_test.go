@@ -8,9 +8,7 @@ import (
 
 	"github.com/go-playground/assert/v2"
 	"github.com/stretchr/testify/mock"
-	"go.mongodb.org/mongo-driver/bson"
 )
-
 
 func TestSearchService_SavePage(t *testing.T) {
 	mockService := mocks.NewIDBClient(t)
@@ -21,24 +19,34 @@ func TestSearchService_SavePage(t *testing.T) {
 		Title:    "Page 10",
 		Keywords: []string{"wrd1", "wrd2"},
 	}
-	var ctx context.Context
-	err := searchservice.SavePage(ctx, input)
+
+	err := searchservice.SavePage(context.TODO(), input)
 
 	assert.Equal(t, nil, err)
 }
 
 func TestSearchService_GetResult(t *testing.T) {
 	// INCOMPLETE
-	mockService := mocks.NewIDBClient(t)
-	mockService.On("GetAllCollection", mock.Anything, mock.Anything).Return([]bson.M{})
-	searchservice := NewSearchService(mockService)
-
-	input := models.Page{
+	out := []models.Page{
+		{
 		Title:    "Page 10",
 		Keywords: []string{"wrd1", "wrd2"},
+		},
 	}
-	var ctx context.Context
-	err := searchservice.SavePage(ctx, input)
 
+	mockDB := mocks.NewIDBClient(t)
+	mockDB.On("GetAllCollection").Return(out)
+	searchservice := NewSearchService(mockDB)
+
+	res := []string{
+		"Page 10",
+	}
+
+	input := models.Keywords{
+		User_keywords: []string{"wrd1", "wrd2"},
+	}
+
+	exp, err := searchservice.GetResult(context.TODO(), input)
+	assert.Equal(t, exp, res)
 	assert.Equal(t, nil, err)
 }
