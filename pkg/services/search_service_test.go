@@ -25,8 +25,7 @@ func TestSearchService_SavePage(t *testing.T) {
 	assert.Equal(t, nil, err)
 }
 
-func TestSearchService_GetResult(t *testing.T) {
-	// INCOMPLETE
+func TestSearchService_GetResult(t *testing.T) {	
 	out := []models.Page{
 		{
 		Title:    "Page 10",
