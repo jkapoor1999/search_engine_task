@@ -15,7 +15,7 @@ make up
 Use any API testing applications such as Postman, Insomnia or ThunderClient
 
 All available routes
-1. To store a webpage in MongoDB : POST Request**
+1. To `insert` a webpage in MongoDB : POST Request**
     `http://localhost:4000/v1/insert`
      Add this to the JSON body
 ```
@@ -28,7 +28,7 @@ All available routes
         ]
       }
  ```
- 2.To get back the computed answer from MongoDB : GET Request
+ 2.To `get` back the computed answer from MongoDB : GET Request
      `http://localhost:4000/v1/get`
      Add this in the JSON body
 ```
@@ -39,7 +39,7 @@ All available routes
               ]
       }
 ```
-3. To perform a healthcheck on the server: GET Request
+3. To perform a `healthcheck` on the server: GET Request
     `http://localhost:4000/v1/get`
     
 ## *STEP 4: TO STOP THE APPLICATION*
