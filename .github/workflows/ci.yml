@@ -11,24 +11,23 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout
+      uses: actions/checkout@v2
 
     - name: Set up Go
-      uses: actions/setup-go
+      uses: actions/setup-go@v2
       with:
         go-version: 1.19
     - name: Install all Dependencies
       run: go mod download
-      run: go mod tidy
     - name: Run tests
       run: |
         go test -v -coverprofile=coverage.out ./...
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action
+      uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: coverage.out
