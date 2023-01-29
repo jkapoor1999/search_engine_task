@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  
+
+jobs:
+  build:
+    runs-on: windows
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout
+
+    - name: Set up Go
+      uses: actions/setup-go
+      with:
+        go-version: 1.19
+    - name: Install all Dependencies
+      run: go mod download
+      run: go mod init
+    - name: Run tests
+      run: |
+        go test -v -coverprofile=coverage.out ./...
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage.out

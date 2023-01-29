@@ -7,9 +7,9 @@
 ```
 cd "search_engine_task"
 
-docker-compose build
+make build
 
-docker-compose up
+make up
 ```
 ## *STEP 3: TESTING API*
 Use any API testing applications such as Postman, Insomnia or ThunderClient
@@ -40,7 +40,7 @@ All available routes
       }
 ```
 ## *STEP 4: TO STOP THE CONTAINER*
-`docker-compose down`
+`make down`
       
     
     
