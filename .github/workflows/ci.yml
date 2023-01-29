@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -23,12 +23,12 @@ jobs:
         go-version: 1.19
     - name: Install all Dependencies
       run: go mod download
-      run: go mod init
+      run: go mod tidy
     - name: Run tests
       run: |
         go test -v -coverprofile=coverage.out ./...
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: coverage.out
