@@ -30,7 +30,10 @@ up:
 
 	@echo Docker images built and started!
 
-
+## Runs all the Unit Tests
+test:
+	@echo Running Tests
+	go test -v -coverprofile=coverage.out ./...	
 
 ## down: stop docker compose
 
