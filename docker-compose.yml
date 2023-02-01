@@ -7,9 +7,6 @@ services:
     volumes:
       - data-vol:/data/db
       - config-vol:/data/configdb
-    #   - ./store/v1/data:/data/db
-    #   - ./store/v1/config:/data/configdb
-
   
   app-container:
     build: .
