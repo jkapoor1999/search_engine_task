@@ -33,7 +33,6 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: coverage.out
-jobs:
   golangci-lint:  name: runner / golangci-lint
     runs-on: ubuntu-latest
     steps:    
