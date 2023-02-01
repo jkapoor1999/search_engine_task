@@ -1,6 +1,6 @@
 name: CI
 
-on: #event
+on: 
   push:
     branches:
       - master
